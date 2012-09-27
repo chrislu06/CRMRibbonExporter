@@ -15,5 +15,10 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
         {
             InitializeComponent();
         }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
     }
 }
