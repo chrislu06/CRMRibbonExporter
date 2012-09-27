@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Crm.Sdk.Samples
+﻿namespace Microsoft.Crm.Sdk.RibbonExporter
 {
     partial class InitialForm
     {

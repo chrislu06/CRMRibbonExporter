@@ -34,7 +34,7 @@ using Microsoft.Crm.Sdk.Messages;
 using System.IO;
 using System.IO.Packaging;
 
-namespace Microsoft.Crm.Sdk.Samples
+namespace Microsoft.Crm.Sdk.RibbonExporter
 {
  /// <summary>
  /// Demonstrates how to export the RibbonXml definitions.</summary>

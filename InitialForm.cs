@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Microsoft.Crm.Sdk.Samples
+namespace Microsoft.Crm.Sdk.RibbonExporter
 {
     public partial class InitialForm : Form
     {

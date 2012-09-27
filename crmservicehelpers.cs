@@ -31,7 +31,7 @@ using Microsoft.Xrm.Sdk.Discovery;
 using Microsoft.Xrm.Sdk;
 using System.Text;
 
-namespace Microsoft.Crm.Sdk.Samples
+namespace Microsoft.Crm.Sdk.RibbonExporter
 {
     /// <summary>
     /// Provides server connection information.
