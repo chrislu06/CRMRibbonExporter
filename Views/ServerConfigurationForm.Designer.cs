@@ -1,6 +1,6 @@
 ﻿namespace Microsoft.Crm.Sdk.RibbonExporter.Views
 {
-    partial class ServerConfiguration
+    partial class ServerConfigurationForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmb_configurations = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -51,13 +51,13 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Saved Server Configurations:";
             // 
-            // comboBox1
+            // cmb_configurations
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(17, 40);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(398, 24);
-            this.comboBox1.TabIndex = 1;
+            this.cmb_configurations.FormattingEnabled = true;
+            this.cmb_configurations.Location = new System.Drawing.Point(17, 40);
+            this.cmb_configurations.Name = "cmb_configurations";
+            this.cmb_configurations.Size = new System.Drawing.Size(398, 24);
+            this.cmb_configurations.TabIndex = 1;
             // 
             // button1
             // 
@@ -135,7 +135,7 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Create New Server Configuration";
             // 
-            // ServerConfiguration
+            // ServerConfigurationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -143,10 +143,11 @@
             this.ClientSize = new System.Drawing.Size(613, 222);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cmb_configurations);
             this.Controls.Add(this.label1);
-            this.Name = "ServerConfiguration";
+            this.Name = "ServerConfigurationForm";
             this.Text = "ServerConfiguration";
+            this.Load += new System.EventHandler(this.ServerConfiguration_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -157,7 +158,7 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmb_configurations;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label3;

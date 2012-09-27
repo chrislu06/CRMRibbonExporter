@@ -34,6 +34,7 @@ using Microsoft.Crm.Sdk.Messages;
 //These references are required for this sample
 using System.IO;
 using System.IO.Packaging;
+using Microsoft.Crm.Sdk.RibbonExporter.Views;
 
 namespace Microsoft.Crm.Sdk.RibbonExporter
 {
@@ -286,16 +287,13 @@ namespace Microsoft.Crm.Sdk.RibbonExporter
    {
        // Obtain the target organization's Web address and client logon 
        // credentials from the user.
-       ServerConnection serverConnect = new ServerConnection();
-       ServerConnection.Configuration config = serverConnect.GetServerConfiguration();
+       //ServerConnection serverConnect = new ServerConnection();
+       //ServerConnection.Configuration config = serverConnect.GetServerConfiguration();
 
         // Enable the UI
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
-        //InitialForm initForm = new InitialForm();
-        //initForm.OrganizationName = config.OrganizationName;
-        Application.Run(new InitialForm());
-
+        Application.Run(new ServerConfigurationForm());
 
         //initForm.Show();
 
