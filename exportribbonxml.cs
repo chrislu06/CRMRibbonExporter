@@ -17,6 +17,7 @@
 using System;
 using System.ServiceModel;
 using System.ServiceModel.Description;
+using System.Windows.Forms;
 
 // These namespaces are found in the Microsoft.Xrm.Sdk.dll assembly
 // located in the SDK\bin folder of the SDK download.
@@ -283,13 +284,23 @@ namespace Microsoft.Crm.Sdk.RibbonExporter
   {
    try
    {
-    // Obtain the target organization's Web address and client logon 
-    // credentials from the user.
-    ServerConnection serverConnect = new ServerConnection();
-    ServerConnection.Configuration config = serverConnect.GetServerConfiguration();
+       // Obtain the target organization's Web address and client logon 
+       // credentials from the user.
+       ServerConnection serverConnect = new ServerConnection();
+       ServerConnection.Configuration config = serverConnect.GetServerConfiguration();
 
-    ExportRibbonXml app = new ExportRibbonXml();
-    app.Run(config, true);
+        // Enable the UI
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+        //InitialForm initForm = new InitialForm();
+        //initForm.OrganizationName = config.OrganizationName;
+        Application.Run(new InitialForm());
+
+
+        //initForm.Show();
+
+        ExportRibbonXml app = new ExportRibbonXml();
+        //app.Run(config, true);
    }
    catch (FaultException<Microsoft.Xrm.Sdk.OrganizationServiceFault> ex)
    {

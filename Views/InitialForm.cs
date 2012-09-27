@@ -11,6 +11,19 @@ namespace Microsoft.Crm.Sdk.RibbonExporter
 {
     public partial class InitialForm : Form
     {
+        private String _orgName;
+        public String OrganizationName
+        {
+            get
+            {
+                return _orgName;
+            }
+            set
+            {
+                _orgName = value;
+                this.lblOrganizationName.Text = _orgName;
+            }
+        }
         public InitialForm()
         {
             InitializeComponent();

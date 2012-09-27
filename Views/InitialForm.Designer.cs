@@ -32,7 +32,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btn_allRibbons = new System.Windows.Forms.Button();
             this.btn_specificRibbons = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblOrganizationName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,15 +68,15 @@
             this.btn_specificRibbons.Text = "Get Specific Organization Ribbons";
             this.btn_specificRibbons.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // lblOrganizationName
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(234, 109);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 17);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Organization: ";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblOrganizationName.AutoSize = true;
+            this.lblOrganizationName.Location = new System.Drawing.Point(234, 109);
+            this.lblOrganizationName.Name = "lblOrganizationName";
+            this.lblOrganizationName.Size = new System.Drawing.Size(97, 17);
+            this.lblOrganizationName.TabIndex = 3;
+            this.lblOrganizationName.Text = "Organization: ";
+            this.lblOrganizationName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // InitialForm
             // 
@@ -84,7 +84,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(578, 253);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblOrganizationName);
             this.Controls.Add(this.btn_specificRibbons);
             this.Controls.Add(this.btn_allRibbons);
             this.Controls.Add(this.pictureBox1);
@@ -102,6 +102,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btn_allRibbons;
         private System.Windows.Forms.Button btn_specificRibbons;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblOrganizationName;
     }
 }
