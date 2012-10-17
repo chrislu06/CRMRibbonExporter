@@ -140,6 +140,8 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
             string path = Path.GetDirectoryName(credentialsFile);
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
+            if (!File.Exists(credentialsFile))
+                File.Create(credentialsFile);
 
             _serverConn.SaveConfiguration(credentialsFile, config, true);
 
