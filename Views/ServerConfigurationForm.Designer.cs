@@ -37,12 +37,17 @@
             this.tbxDomainUsername = new System.Windows.Forms.TextBox();
             this.lblPassword = new System.Windows.Forms.Label();
             this.tbxPassword = new System.Windows.Forms.MaskedTextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.gbxServerConfig = new System.Windows.Forms.GroupBox();
             this.cbxOffice365 = new System.Windows.Forms.CheckBox();
             this.cbxHttps = new System.Windows.Forms.CheckBox();
             this.btnClearForm = new System.Windows.Forms.Button();
             this.btnSaveConfig = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
+            this.gbxOrgs = new System.Windows.Forms.GroupBox();
+            this.lbOrganizations = new System.Windows.Forms.ListBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnSelectOrg = new System.Windows.Forms.Button();
+            this.gbxServerConfig.SuspendLayout();
+            this.gbxOrgs.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -127,25 +132,25 @@
             this.tbxPassword.Size = new System.Drawing.Size(426, 22);
             this.tbxPassword.TabIndex = 10;
             // 
-            // groupBox1
+            // gbxServerConfig
             // 
-            this.groupBox1.Controls.Add(this.cbxOffice365);
-            this.groupBox1.Controls.Add(this.cbxHttps);
-            this.groupBox1.Controls.Add(this.btnClearForm);
-            this.groupBox1.Controls.Add(this.btnSaveConfig);
-            this.groupBox1.Controls.Add(this.tbxPassword);
-            this.groupBox1.Controls.Add(this.tbxServerAddr);
-            this.groupBox1.Controls.Add(this.lblPassword);
-            this.groupBox1.Controls.Add(this.lblServerAddr);
-            this.groupBox1.Controls.Add(this.lblDomainAndUsername);
-            this.groupBox1.Controls.Add(this.tbxDomainUsername);
-            this.groupBox1.Location = new System.Drawing.Point(17, 73);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(584, 234);
-            this.groupBox1.TabIndex = 11;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Create New Server Configuration";
-            this.groupBox1.Visible = false;
+            this.gbxServerConfig.Controls.Add(this.cbxOffice365);
+            this.gbxServerConfig.Controls.Add(this.cbxHttps);
+            this.gbxServerConfig.Controls.Add(this.btnClearForm);
+            this.gbxServerConfig.Controls.Add(this.btnSaveConfig);
+            this.gbxServerConfig.Controls.Add(this.tbxPassword);
+            this.gbxServerConfig.Controls.Add(this.tbxServerAddr);
+            this.gbxServerConfig.Controls.Add(this.lblPassword);
+            this.gbxServerConfig.Controls.Add(this.lblServerAddr);
+            this.gbxServerConfig.Controls.Add(this.lblDomainAndUsername);
+            this.gbxServerConfig.Controls.Add(this.tbxDomainUsername);
+            this.gbxServerConfig.Location = new System.Drawing.Point(17, 73);
+            this.gbxServerConfig.Name = "gbxServerConfig";
+            this.gbxServerConfig.Size = new System.Drawing.Size(584, 234);
+            this.gbxServerConfig.TabIndex = 11;
+            this.gbxServerConfig.TabStop = false;
+            this.gbxServerConfig.Text = "Create New Server Configuration";
+            this.gbxServerConfig.Visible = false;
             // 
             // cbxOffice365
             // 
@@ -187,21 +192,65 @@
             this.btnSaveConfig.UseVisualStyleBackColor = true;
             this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
             // 
+            // gbxOrgs
+            // 
+            this.gbxOrgs.Controls.Add(this.btnSelectOrg);
+            this.gbxOrgs.Controls.Add(this.label2);
+            this.gbxOrgs.Controls.Add(this.lbOrganizations);
+            this.gbxOrgs.Location = new System.Drawing.Point(17, 313);
+            this.gbxOrgs.Name = "gbxOrgs";
+            this.gbxOrgs.Size = new System.Drawing.Size(584, 138);
+            this.gbxOrgs.TabIndex = 12;
+            this.gbxOrgs.TabStop = false;
+            this.gbxOrgs.Text = "Organizations";
+            this.gbxOrgs.Visible = false;
+            // 
+            // lbOrganizations
+            // 
+            this.lbOrganizations.FormattingEnabled = true;
+            this.lbOrganizations.ItemHeight = 16;
+            this.lbOrganizations.Location = new System.Drawing.Point(17, 21);
+            this.lbOrganizations.Name = "lbOrganizations";
+            this.lbOrganizations.Size = new System.Drawing.Size(207, 100);
+            this.lbOrganizations.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(230, 21);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(152, 17);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Select an Organization";
+            // 
+            // btnSelectOrg
+            // 
+            this.btnSelectOrg.Location = new System.Drawing.Point(233, 50);
+            this.btnSelectOrg.Name = "btnSelectOrg";
+            this.btnSelectOrg.Size = new System.Drawing.Size(148, 38);
+            this.btnSelectOrg.TabIndex = 2;
+            this.btnSelectOrg.Text = "Select Organization";
+            this.btnSelectOrg.UseVisualStyleBackColor = true;
+            this.btnSelectOrg.Click += new System.EventHandler(this.btnSelectOrg_Click);
+            // 
             // ServerConfigurationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(613, 316);
-            this.Controls.Add(this.groupBox1);
+            this.ClientSize = new System.Drawing.Size(613, 463);
+            this.Controls.Add(this.gbxOrgs);
+            this.Controls.Add(this.gbxServerConfig);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.cmb_configurations);
             this.Controls.Add(this.label1);
             this.Name = "ServerConfigurationForm";
             this.Text = "ServerConfiguration";
             this.Load += new System.EventHandler(this.ServerConfiguration_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.gbxServerConfig.ResumeLayout(false);
+            this.gbxServerConfig.PerformLayout();
+            this.gbxOrgs.ResumeLayout(false);
+            this.gbxOrgs.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -218,10 +267,14 @@
         private System.Windows.Forms.TextBox tbxDomainUsername;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.MaskedTextBox tbxPassword;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox gbxServerConfig;
         private System.Windows.Forms.Button btnClearForm;
         private System.Windows.Forms.Button btnSaveConfig;
         private System.Windows.Forms.CheckBox cbxOffice365;
         private System.Windows.Forms.CheckBox cbxHttps;
+        private System.Windows.Forms.GroupBox gbxOrgs;
+        private System.Windows.Forms.Button btnSelectOrg;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ListBox lbOrganizations;
     }
 }

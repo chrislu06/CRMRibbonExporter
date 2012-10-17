@@ -19,7 +19,9 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
     public partial class ServerConfigurationForm : Form
     {
         private ServerConnection _serverConn;
-        public ServerConnection ServerConnection { get; set; }
+        private ServerConnection.Configuration _newConfig;
+        string _credentialsFile = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CrmServer"), "Credentials.xml");
+        //public ServerConnection ServerConnection { get; set; }
 
         public ServerConfigurationForm()
         {
@@ -34,18 +36,24 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
             if (_serverConn.configurations != null)
                 _serverConn.configurations.Clear();
 
+            Boolean isConfigExist = false;
             try {
-                Boolean isConfigExist = _serverConn.ReadConfigurations();
-                if (isConfigExist) {
-                    for (int i = 0; i < _serverConn.configurations.Count; i++) {
-                        cmb_configurations.Items.Add(_serverConn.configurations[i].ServerAddress + " : " +
-                                                     _serverConn.configurations[i].OrganizationName);
-                    }
+                isConfigExist = _serverConn.ReadConfigurations();
+            }
+            catch (Exception ex) {
+
+            }
+
+            if (isConfigExist) {
+                /*for (int i = 0; i < _serverConn.configurations.Count; i++) {
+                    cmb_configurations.Items.Add(_serverConn.configurations[i].ServerAddress + " : " +
+                                                 _serverConn.configurations[i].OrganizationName);
+                }*/
+                foreach (var config in _serverConn.configurations) {
+                    cmb_configurations.Items.Add(config.ServerAddress + " : " + config.OrganizationName);
                 }
             }
-            catch (Exception ex)
-            {
-            }
+
             cmb_configurations.Items.Add("<< Create new server configuration >>");
         }
 
@@ -84,37 +92,33 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
 
         private void btnSaveConfig_Click(object sender, EventArgs e)
         {
-            ServerConnection.Configuration config = new ServerConnection.Configuration();
+            _newConfig = new ServerConnection.Configuration { ServerAddress = tbxServerAddr.Text };
 
-            config.ServerAddress = tbxServerAddr.Text;
-            if (String.IsNullOrWhiteSpace(config.ServerAddress))
-                config.ServerAddress = "crm.dynamics.com";
-
-            // Get Server Address
-            config.ServerAddress = tbxServerAddr.Text;
+            if (String.IsNullOrWhiteSpace(_newConfig.ServerAddress))
+                _newConfig.ServerAddress = "crm.dynamics.com";
 
             // One of the Microsoft Dynamics CRM Online data centers.
-            if (config.ServerAddress.EndsWith(".dynamics.com", StringComparison.InvariantCultureIgnoreCase)) {
+            if (_newConfig.ServerAddress.EndsWith(".dynamics.com", StringComparison.InvariantCultureIgnoreCase)) {
                 // Check if the organization is provisioned in Microsoft Office 365.
                 if (cbxOffice365.Checked) {
-                    config.DiscoveryUri =
-                        new Uri(String.Format("https://disco.{0}/XRMServices/2011/Discovery.svc", config.ServerAddress));
+                    _newConfig.DiscoveryUri =
+                        new Uri(String.Format("https://disco.{0}/XRMServices/2011/Discovery.svc", _newConfig.ServerAddress));
                 }
                 else {
-                    config.DiscoveryUri =
-                        new Uri(String.Format("https://dev.{0}/XRMServices/2011/Discovery.svc", config.ServerAddress));
+                    _newConfig.DiscoveryUri =
+                        new Uri(String.Format("https://dev.{0}/XRMServices/2011/Discovery.svc", _newConfig.ServerAddress));
 
                     // Get or set the device credentials. This is required for Windows Live ID authentication. 
-                    config.DeviceCredentials = Microsoft.Crm.Services.Utility.DeviceIdManager.LoadOrRegisterDevice();
+                    _newConfig.DeviceCredentials = Microsoft.Crm.Services.Utility.DeviceIdManager.LoadOrRegisterDevice();
                 }
             }
             // Check if the server uses Secure Socket Layer (https).
             else if (cbxHttps.Checked)
-                config.DiscoveryUri =
-                    new Uri(String.Format("https://{0}/XRMServices/2011/Discovery.svc", config.ServerAddress));
+                _newConfig.DiscoveryUri =
+                    new Uri(String.Format("https://{0}/XRMServices/2011/Discovery.svc", _newConfig.ServerAddress));
             else
-                config.DiscoveryUri =
-                    new Uri(String.Format("http://{0}/XRMServices/2011/Discovery.svc", config.ServerAddress));
+                _newConfig.DiscoveryUri =
+                    new Uri(String.Format("http://{0}/XRMServices/2011/Discovery.svc", _newConfig.ServerAddress));
 
             // Get Login Credentials
             ClientCredentials credentials = new ClientCredentials();
@@ -127,22 +131,29 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
             }
 
             credentials.Windows.ClientCredential = new System.Net.NetworkCredential(domainAndUserName[1], tbxPassword.Text, domainAndUserName[0]);
-            config.Credentials = credentials;
-            string credentialsFile = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CrmServer"), "Credentials.xml");
+            _newConfig.Credentials = credentials;
 
             // Get Target Organization
             MyCrmServiceHelper helpme = new MyCrmServiceHelper();
-            OrganizationDetailCollection organizations = helpme.GetOrganizationAddressesAsList(config);
+            OrganizationDetailCollection organizations = helpme.GetOrganizationAddressesAsList(_newConfig);
 
             if (organizations.Count == 1) {
-                config.OrganizationName = organizations[0].FriendlyName;
-                config.OrganizationUri = new Uri(organizations[0].Endpoints[EndpointType.OrganizationService]);
+                _newConfig.OrganizationName = organizations[0].FriendlyName;
+                _newConfig.OrganizationUri = new Uri(organizations[0].Endpoints[EndpointType.OrganizationService]);
+                SaveConfiguration();
             }
             else
-                MessageBox.Show("more than 1 organization");
+            {
+                this.Height = 510;
+                gbxOrgs.Visible = true;
+                lbOrganizations.DataSource = organizations;
+                lbOrganizations.DisplayMember = "FriendlyName";
+            }
+        }
 
-
-            FileInfo file = new FileInfo(credentialsFile);
+        private void SaveConfiguration()
+        {
+            FileInfo file = new FileInfo(_credentialsFile);
             // Create directory if it does not exist.
             if (!file.Directory.Exists)
                 file.Directory.Create();
@@ -158,7 +169,7 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
                 }
             }
 
-            _serverConn.SaveConfiguration(credentialsFile, config, true);
+            _serverConn.SaveConfiguration(_credentialsFile, _newConfig, true);
 
             ClearForm();
             ToggleFormView(hideView: true);
@@ -181,14 +192,26 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
 
         private void ToggleFormView(bool hideView)
         {
-            //if (cmb_configurations.SelectedIndex == cmb_configurations.Items.Count - 1) {
             if (! hideView) {
                 this.Height = 363;
-                this.groupBox1.Visible = true;
+                this.gbxServerConfig.Visible = true;
             }
             else {
                 this.Height = 120;
-                this.groupBox1.Visible = false;
+                this.gbxServerConfig.Visible = false;
+            }
+        }
+
+        private void btnSelectOrg_Click(object sender, EventArgs e)
+        {
+            OrganizationDetail organization = lbOrganizations.SelectedItem as OrganizationDetail;
+
+            if (organization != null)
+            {
+                _newConfig.OrganizationName = organization.FriendlyName;
+                _newConfig.OrganizationUri = new Uri(organization.Endpoints[EndpointType.OrganizationService]);
+
+                SaveConfiguration();
             }
         }
     }
