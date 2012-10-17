@@ -12,6 +12,7 @@ using Microsoft.Xrm.Sdk;
 using System.ServiceModel.Description;
 using Microsoft.Crm.Sdk.RibbonExporter.Helpers;
 using Microsoft.Xrm.Sdk.Discovery;
+using System.Xml;
 
 namespace Microsoft.Crm.Sdk.RibbonExporter.Views
 {
@@ -33,13 +34,17 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
             if (_serverConn.configurations != null)
                 _serverConn.configurations.Clear();
 
-            Boolean isConfigExist = _serverConn.ReadConfigurations();
-            if (isConfigExist)
-            {
-                for (int i = 0; i < _serverConn.configurations.Count; i++)
-                {
-                    cmb_configurations.Items.Add(_serverConn.configurations[i].ServerAddress + " : " + _serverConn.configurations[i].OrganizationName);
+            try {
+                Boolean isConfigExist = _serverConn.ReadConfigurations();
+                if (isConfigExist) {
+                    for (int i = 0; i < _serverConn.configurations.Count; i++) {
+                        cmb_configurations.Items.Add(_serverConn.configurations[i].ServerAddress + " : " +
+                                                     _serverConn.configurations[i].OrganizationName);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
             }
             cmb_configurations.Items.Add("<< Create new server configuration >>");
         }
@@ -137,11 +142,21 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
                 MessageBox.Show("more than 1 organization");
 
 
-            string path = Path.GetDirectoryName(credentialsFile);
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);
-            if (!File.Exists(credentialsFile))
-                File.Create(credentialsFile);
+            FileInfo file = new FileInfo(credentialsFile);
+            // Create directory if it does not exist.
+            if (!file.Directory.Exists)
+                file.Directory.Create();
+
+            // Replace the file if it exists.
+            using (FileStream fs = file.Open(FileMode.Create, FileAccess.Write, FileShare.None)) {
+                using (XmlTextWriter writer = new XmlTextWriter(fs, Encoding.UTF8)) {
+                    writer.Formatting = Formatting.Indented;
+                    writer.WriteStartDocument();
+                    writer.WriteStartElement("Configurations");
+                    writer.WriteFullEndElement();
+                    writer.WriteEndDocument();
+                }
+            }
 
             _serverConn.SaveConfiguration(credentialsFile, config, true);
 
