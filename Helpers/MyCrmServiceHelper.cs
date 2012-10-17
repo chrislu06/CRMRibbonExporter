@@ -11,14 +11,13 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Helpers
     {
         public OrganizationDetailCollection GetOrganizationAddressesAsList(ServerConnection.Configuration config)
         {
+            OrganizationDetailCollection orgs = new OrganizationDetailCollection();
             using (DiscoveryServiceProxy serviceProxy = GetDiscoveryProxy(config)) {
                 // Obtain organization information from the Discovery service. 
-                if (serviceProxy != null) {
-                    OrganizationDetailCollection orgs = DiscoverOrganizations(serviceProxy);
-                    return orgs;
-                }
+                if (serviceProxy != null)
+                    orgs = DiscoverOrganizations(serviceProxy);
             }
-            return null;
+            return orgs;
         }
 
         /// <summary>

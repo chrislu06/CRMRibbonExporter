@@ -11,6 +11,7 @@ using Microsoft.Xrm.Sdk.Client;
 using Microsoft.Xrm.Sdk;
 using System.ServiceModel.Description;
 using Microsoft.Crm.Sdk.RibbonExporter.Helpers;
+using Microsoft.Xrm.Sdk.Discovery;
 
 namespace Microsoft.Crm.Sdk.RibbonExporter.Views
 {
@@ -28,6 +29,10 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
 
         public void PopulateSavedConfigurations()
         {
+            cmb_configurations.Items.Clear();
+            if (_serverConn.configurations != null)
+                _serverConn.configurations.Clear();
+
             Boolean isConfigExist = _serverConn.ReadConfigurations();
             if (isConfigExist)
             {
@@ -35,8 +40,8 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
                 {
                     cmb_configurations.Items.Add(_serverConn.configurations[i].ServerAddress + " : " + _serverConn.configurations[i].OrganizationName);
                 }
-                cmb_configurations.Items.Add("<< Create new server configuration >>");
             }
+            cmb_configurations.Items.Add("<< Create new server configuration >>");
         }
 
         private void ServerConfiguration_Load(object sender, EventArgs e)
@@ -47,15 +52,9 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
         private void cmb_configurations_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmb_configurations.SelectedIndex == cmb_configurations.Items.Count - 1)
-            {
-                this.Height = 363;
-                this.groupBox1.Visible = true;
-            }
+                ToggleFormView(hideView: false);
             else
-            {
-                this.Height = 120;
-                this.groupBox1.Visible = false;
-            }
+                ToggleFormView(hideView: true);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -80,7 +79,7 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
 
         private void btnSaveConfig_Click(object sender, EventArgs e)
         {
-            ServerConnection.Configuration config = new RibbonExporter.ServerConnection.Configuration();
+            ServerConnection.Configuration config = new ServerConnection.Configuration();
 
             config.ServerAddress = tbxServerAddr.Text;
             if (String.IsNullOrWhiteSpace(config.ServerAddress))
@@ -122,18 +121,48 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
 
             // Get Target Organization
             MyCrmServiceHelper helpme = new MyCrmServiceHelper();
-            helpme.GetOrganizationAddressesAsList(config);
+            OrganizationDetailCollection organizations = helpme.GetOrganizationAddressesAsList(config);
+
+            if (organizations.Count == 1) {
+                config.OrganizationName = organizations[0].FriendlyName;
+                config.OrganizationUri = new Uri(organizations[0].Endpoints[EndpointType.OrganizationService]);
+            }
+            else
+                MessageBox.Show("more than 1 organization");
+            
 
             _serverConn.SaveConfiguration(credentialsFile, config, true);
+
+            ClearForm();
+            ToggleFormView(hideView: true);
+            PopulateSavedConfigurations();
         }
 
         private void btnClearForm_Click(object sender, EventArgs e)
+        {
+            ClearForm();
+        }
+
+        private void ClearForm()
         {
             tbxServerAddr.Text = "";
             tbxDomainUsername.Text = "";
             tbxPassword.Text = "";
             cbxHttps.Checked = false;
             cbxOffice365.Checked = false;
+        }
+
+        private void ToggleFormView(bool hideView)
+        {
+            //if (cmb_configurations.SelectedIndex == cmb_configurations.Items.Count - 1) {
+            if (! hideView) {
+                this.Height = 363;
+                this.groupBox1.Visible = true;
+            }
+            else {
+                this.Height = 120;
+                this.groupBox1.Visible = false;
+            }
         }
     }
 }

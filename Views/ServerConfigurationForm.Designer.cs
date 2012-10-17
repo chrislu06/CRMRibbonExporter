@@ -38,10 +38,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.tbxPassword = new System.Windows.Forms.MaskedTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbxOffice365 = new System.Windows.Forms.CheckBox();
+            this.cbxHttps = new System.Windows.Forms.CheckBox();
             this.btnClearForm = new System.Windows.Forms.Button();
             this.btnSaveConfig = new System.Windows.Forms.Button();
-            this.cbxHttps = new System.Windows.Forms.CheckBox();
-            this.cbxOffice365 = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,6 +57,7 @@
             // 
             // cmb_configurations
             // 
+            this.cmb_configurations.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmb_configurations.FormattingEnabled = true;
             this.cmb_configurations.Location = new System.Drawing.Point(17, 40);
             this.cmb_configurations.Name = "cmb_configurations";
@@ -146,6 +147,26 @@
             this.groupBox1.Text = "Create New Server Configuration";
             this.groupBox1.Visible = false;
             // 
+            // cbxOffice365
+            // 
+            this.cbxOffice365.AutoSize = true;
+            this.cbxOffice365.Location = new System.Drawing.Point(17, 160);
+            this.cbxOffice365.Name = "cbxOffice365";
+            this.cbxOffice365.Size = new System.Drawing.Size(323, 21);
+            this.cbxOffice365.TabIndex = 14;
+            this.cbxOffice365.Text = "Is this organization provisioned for Office 365?";
+            this.cbxOffice365.UseVisualStyleBackColor = true;
+            // 
+            // cbxHttps
+            // 
+            this.cbxHttps.AutoSize = true;
+            this.cbxHttps.Location = new System.Drawing.Point(17, 132);
+            this.cbxHttps.Name = "cbxHttps";
+            this.cbxHttps.Size = new System.Drawing.Size(207, 21);
+            this.cbxHttps.TabIndex = 13;
+            this.cbxHttps.Text = "Secure Socket Layer (https)";
+            this.cbxHttps.UseVisualStyleBackColor = true;
+            // 
             // btnClearForm
             // 
             this.btnClearForm.Location = new System.Drawing.Point(348, 189);
@@ -165,26 +186,6 @@
             this.btnSaveConfig.Text = "Save";
             this.btnSaveConfig.UseVisualStyleBackColor = true;
             this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
-            // 
-            // cbxHttps
-            // 
-            this.cbxHttps.AutoSize = true;
-            this.cbxHttps.Location = new System.Drawing.Point(17, 132);
-            this.cbxHttps.Name = "cbxHttps";
-            this.cbxHttps.Size = new System.Drawing.Size(207, 21);
-            this.cbxHttps.TabIndex = 13;
-            this.cbxHttps.Text = "Secure Socket Layer (https)";
-            this.cbxHttps.UseVisualStyleBackColor = true;
-            // 
-            // cbxOffice365
-            // 
-            this.cbxOffice365.AutoSize = true;
-            this.cbxOffice365.Location = new System.Drawing.Point(17, 160);
-            this.cbxOffice365.Name = "cbxOffice365";
-            this.cbxOffice365.Size = new System.Drawing.Size(323, 21);
-            this.cbxOffice365.TabIndex = 14;
-            this.cbxOffice365.Text = "Is this organization provisioned for Office 365?";
-            this.cbxOffice365.UseVisualStyleBackColor = true;
             // 
             // ServerConfigurationForm
             // 
