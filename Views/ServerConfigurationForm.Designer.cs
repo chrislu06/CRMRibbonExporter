@@ -32,10 +32,10 @@
             this.cmb_configurations = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.tbxServerAddr = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblServerAddr = new System.Windows.Forms.Label();
+            this.lblDomainAndUsername = new System.Windows.Forms.Label();
             this.tbxDomainUsername = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblPassword = new System.Windows.Forms.Label();
             this.tbxPassword = new System.Windows.Forms.MaskedTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbxOffice365 = new System.Windows.Forms.CheckBox();
@@ -83,25 +83,25 @@
             this.tbxServerAddr.Size = new System.Drawing.Size(426, 22);
             this.tbxServerAddr.TabIndex = 4;
             // 
-            // label3
+            // lblServerAddr
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(13, 37);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(110, 20);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Server Address:";
+            this.lblServerAddr.AutoSize = true;
+            this.lblServerAddr.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblServerAddr.Location = new System.Drawing.Point(13, 37);
+            this.lblServerAddr.Name = "lblServerAddr";
+            this.lblServerAddr.Size = new System.Drawing.Size(110, 20);
+            this.lblServerAddr.TabIndex = 5;
+            this.lblServerAddr.Text = "Server Address:";
             // 
-            // label4
+            // lblDomainAndUsername
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(13, 65);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(133, 20);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "domain\\username:";
+            this.lblDomainAndUsername.AutoSize = true;
+            this.lblDomainAndUsername.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDomainAndUsername.Location = new System.Drawing.Point(13, 65);
+            this.lblDomainAndUsername.Name = "lblDomainAndUsername";
+            this.lblDomainAndUsername.Size = new System.Drawing.Size(133, 20);
+            this.lblDomainAndUsername.TabIndex = 7;
+            this.lblDomainAndUsername.Text = "domain\\username:";
             // 
             // tbxDomainUsername
             // 
@@ -110,15 +110,15 @@
             this.tbxDomainUsername.Size = new System.Drawing.Size(426, 22);
             this.tbxDomainUsername.TabIndex = 6;
             // 
-            // label5
+            // lblPassword
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(13, 93);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(74, 20);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Password:";
+            this.lblPassword.AutoSize = true;
+            this.lblPassword.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPassword.Location = new System.Drawing.Point(13, 93);
+            this.lblPassword.Name = "lblPassword";
+            this.lblPassword.Size = new System.Drawing.Size(74, 20);
+            this.lblPassword.TabIndex = 9;
+            this.lblPassword.Text = "Password:";
             // 
             // tbxPassword
             // 
@@ -135,9 +135,9 @@
             this.groupBox1.Controls.Add(this.btnSaveConfig);
             this.groupBox1.Controls.Add(this.tbxPassword);
             this.groupBox1.Controls.Add(this.tbxServerAddr);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.lblPassword);
+            this.groupBox1.Controls.Add(this.lblServerAddr);
+            this.groupBox1.Controls.Add(this.lblDomainAndUsername);
             this.groupBox1.Controls.Add(this.tbxDomainUsername);
             this.groupBox1.Location = new System.Drawing.Point(17, 73);
             this.groupBox1.Name = "groupBox1";
@@ -213,10 +213,10 @@
         private System.Windows.Forms.ComboBox cmb_configurations;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox tbxServerAddr;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblServerAddr;
+        private System.Windows.Forms.Label lblDomainAndUsername;
         private System.Windows.Forms.TextBox tbxDomainUsername;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.MaskedTextBox tbxPassword;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnClearForm;

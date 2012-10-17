@@ -115,6 +115,12 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
             ClientCredentials credentials = new ClientCredentials();
             String[] domainAndUserName = tbxDomainUsername.Text.Split('\\');
 
+            if (domainAndUserName.Count() != 2)
+            {
+                lblDomainAndUsername.ForeColor = Color.Red;
+                return;
+            }
+
             credentials.Windows.ClientCredential = new System.Net.NetworkCredential(domainAndUserName[1], tbxPassword.Text, domainAndUserName[0]);
             config.Credentials = credentials;
             string credentialsFile = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CrmServer"), "Credentials.xml");
@@ -129,7 +135,11 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
             }
             else
                 MessageBox.Show("more than 1 organization");
-            
+
+
+            string path = Path.GetDirectoryName(credentialsFile);
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
 
             _serverConn.SaveConfiguration(credentialsFile, config, true);
 
