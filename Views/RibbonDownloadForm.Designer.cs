@@ -29,17 +29,22 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gbMain = new System.Windows.Forms.GroupBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.lblAvailable = new System.Windows.Forms.Label();
-            this.lblExport = new System.Windows.Forms.Label();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.btnRemove = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
+            this.btnRemove = new System.Windows.Forms.Button();
+            this.lstboxExport = new System.Windows.Forms.ListBox();
+            this.lblExport = new System.Windows.Forms.Label();
+            this.lblAvailable = new System.Windows.Forms.Label();
+            this.lstboxAvailable = new System.Windows.Forms.ListBox();
+            this.lblSaveTo = new System.Windows.Forms.Label();
+            this.tbxDownloadTo = new System.Windows.Forms.TextBox();
+            this.btnBrowse = new System.Windows.Forms.Button();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.menuStrip1.SuspendLayout();
             this.gbMain.SuspendLayout();
             this.SuspendLayout();
@@ -54,7 +59,7 @@
             this.menuStrip1.Size = new System.Drawing.Size(738, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
+            //this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // fileToolStripMenuItem
             // 
@@ -63,6 +68,12 @@
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
             this.fileToolStripMenuItem.Text = "File";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(102, 24);
+            this.exitToolStripMenuItem.Text = "Exit";
             // 
             // helpToolStripMenuItem
             // 
@@ -73,22 +84,16 @@
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
             this.helpToolStripMenuItem.Text = "Help";
             // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
-            this.exitToolStripMenuItem.Text = "Exit";
-            // 
             // viewHelpToolStripMenuItem
             // 
             this.viewHelpToolStripMenuItem.Name = "viewHelpToolStripMenuItem";
-            this.viewHelpToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.viewHelpToolStripMenuItem.Size = new System.Drawing.Size(146, 24);
             this.viewHelpToolStripMenuItem.Text = "View Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(146, 24);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // gbMain
@@ -96,36 +101,62 @@
             this.gbMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbMain.Controls.Add(this.btnBrowse);
+            this.gbMain.Controls.Add(this.tbxDownloadTo);
+            this.gbMain.Controls.Add(this.lblSaveTo);
+            this.gbMain.Controls.Add(this.btnExport);
             this.gbMain.Controls.Add(this.btnAdd);
             this.gbMain.Controls.Add(this.btnRemove);
-            this.gbMain.Controls.Add(this.listBox2);
+            this.gbMain.Controls.Add(this.lstboxExport);
             this.gbMain.Controls.Add(this.lblExport);
             this.gbMain.Controls.Add(this.lblAvailable);
-            this.gbMain.Controls.Add(this.listBox1);
+            this.gbMain.Controls.Add(this.lstboxAvailable);
             this.gbMain.Location = new System.Drawing.Point(13, 32);
             this.gbMain.Name = "gbMain";
-            this.gbMain.Size = new System.Drawing.Size(713, 604);
+            this.gbMain.Size = new System.Drawing.Size(713, 664);
             this.gbMain.TabIndex = 1;
             this.gbMain.TabStop = false;
             this.gbMain.Text = "Ribbon Exporter";
             // 
-            // listBox1
+            // btnExport
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(28, 61);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(272, 532);
-            this.listBox1.TabIndex = 0;
+            this.btnExport.Location = new System.Drawing.Point(606, 606);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(75, 31);
+            this.btnExport.TabIndex = 6;
+            this.btnExport.Text = "Export!";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
-            // lblAvailable
+            // btnAdd
             // 
-            this.lblAvailable.AutoSize = true;
-            this.lblAvailable.Location = new System.Drawing.Point(98, 41);
-            this.lblAvailable.Name = "lblAvailable";
-            this.lblAvailable.Size = new System.Drawing.Size(65, 17);
-            this.lblAvailable.TabIndex = 1;
-            this.lblAvailable.Text = "Available";
+            this.btnAdd.Location = new System.Drawing.Point(317, 227);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 5;
+            this.btnAdd.Text = ">>";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // btnRemove
+            // 
+            this.btnRemove.Location = new System.Drawing.Point(317, 282);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(75, 23);
+            this.btnRemove.TabIndex = 4;
+            this.btnRemove.Text = "<<";
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            // 
+            // lstboxExport
+            // 
+            this.lstboxExport.FormattingEnabled = true;
+            this.lstboxExport.ItemHeight = 16;
+            this.lstboxExport.Location = new System.Drawing.Point(410, 61);
+            this.lstboxExport.Name = "lstboxExport";
+            this.lstboxExport.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lstboxExport.Size = new System.Drawing.Size(272, 532);
+            this.lstboxExport.TabIndex = 3;
             // 
             // lblExport
             // 
@@ -136,38 +167,57 @@
             this.lblExport.TabIndex = 2;
             this.lblExport.Text = "Export";
             // 
-            // listBox2
+            // lblAvailable
             // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 16;
-            this.listBox2.Location = new System.Drawing.Point(410, 61);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(272, 532);
-            this.listBox2.TabIndex = 3;
+            this.lblAvailable.AutoSize = true;
+            this.lblAvailable.Location = new System.Drawing.Point(98, 41);
+            this.lblAvailable.Name = "lblAvailable";
+            this.lblAvailable.Size = new System.Drawing.Size(65, 17);
+            this.lblAvailable.TabIndex = 1;
+            this.lblAvailable.Text = "Available";
             // 
-            // btnRemove
+            // lstboxAvailable
             // 
-            this.btnRemove.Location = new System.Drawing.Point(317, 282);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(75, 23);
-            this.btnRemove.TabIndex = 4;
-            this.btnRemove.Text = "<<";
-            this.btnRemove.UseVisualStyleBackColor = true;
+            this.lstboxAvailable.FormattingEnabled = true;
+            this.lstboxAvailable.ItemHeight = 16;
+            this.lstboxAvailable.Location = new System.Drawing.Point(28, 61);
+            this.lstboxAvailable.Name = "lstboxAvailable";
+            this.lstboxAvailable.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lstboxAvailable.Size = new System.Drawing.Size(272, 532);
+            this.lstboxAvailable.TabIndex = 0;
             // 
-            // btnAdd
+            // lblSaveTo
             // 
-            this.btnAdd.Location = new System.Drawing.Point(317, 227);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnAdd.TabIndex = 5;
-            this.btnAdd.Text = ">>";
-            this.btnAdd.UseVisualStyleBackColor = true;
+            this.lblSaveTo.AutoSize = true;
+            this.lblSaveTo.Location = new System.Drawing.Point(12, 613);
+            this.lblSaveTo.Name = "lblSaveTo";
+            this.lblSaveTo.Size = new System.Drawing.Size(164, 17);
+            this.lblSaveTo.TabIndex = 7;
+            this.lblSaveTo.Text = "Download XML Files To: ";
+            // 
+            // tbxDownloadTo
+            // 
+            this.tbxDownloadTo.Location = new System.Drawing.Point(182, 610);
+            this.tbxDownloadTo.Name = "tbxDownloadTo";
+            this.tbxDownloadTo.Size = new System.Drawing.Size(337, 22);
+            this.tbxDownloadTo.TabIndex = 8;
+            // 
+            // btnBrowse
+            // 
+            this.btnBrowse.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBrowse.Location = new System.Drawing.Point(525, 606);
+            this.btnBrowse.Name = "btnBrowse";
+            this.btnBrowse.Size = new System.Drawing.Size(75, 31);
+            this.btnBrowse.TabIndex = 9;
+            this.btnBrowse.Text = "...";
+            this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             // 
             // RibbonDownloadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(738, 650);
+            this.ClientSize = new System.Drawing.Size(738, 710);
             this.Controls.Add(this.gbMain);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -193,9 +243,14 @@
         private System.Windows.Forms.GroupBox gbMain;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnRemove;
-        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.ListBox lstboxExport;
         private System.Windows.Forms.Label lblExport;
         private System.Windows.Forms.Label lblAvailable;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lstboxAvailable;
+        private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.Button btnBrowse;
+        private System.Windows.Forms.TextBox tbxDownloadTo;
+        private System.Windows.Forms.Label lblSaveTo;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }
 }

@@ -174,6 +174,7 @@ namespace Microsoft.Crm.Sdk.RibbonExporter
         /// Uri and user logon credentials from the user.
         /// </summary>
         public virtual Configuration GetServerConfiguration()
+        //public List<ServerConfigurationItem> GetServerConfigurations()
         {
             Boolean ssl;
             Boolean addConfig;
@@ -182,16 +183,13 @@ namespace Microsoft.Crm.Sdk.RibbonExporter
             Boolean isConfigExist = ReadConfigurations();
 
             // Check if server configuration settings are already available on the disk.
-            if (isConfigExist)
-            {
+            if (isConfigExist) {
                 // List of server configurations that are available from earlier saved settings.
                 Console.Write("\n(0) Add New Server Configuration (Maximum number up to 9)\t");
-                for (int n = 0; n < configurations.Count; n++)
-                {
+                for (int n = 0; n < configurations.Count; n++) {
                     String user;
 
-                    switch (configurations[n].EndpointType)
-                    {
+                    switch (configurations[n].EndpointType) {
                         case AuthenticationProviderType.ActiveDirectory:
                             if (configurations[n].Credentials != null)
                                 user = configurations[n].Credentials.Windows.ClientCredential.Domain + "\\"

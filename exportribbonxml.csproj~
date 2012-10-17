@@ -65,20 +65,20 @@
     <Compile Include="crmservicehelpers.cs" />
     <Compile Include="deviceidmanager.cs" />
     <Compile Include="ExportRibbonXml.cs" />
-    <Compile Include="Helpers\MyCrmServiceHelper.cs" />
-    <Compile Include="Helpers\RibbonItemHelper.cs" />
-    <Compile Include="Models\RibbonItem.cs" />
+    <Compile Include="RibbonItemHelper.cs" />
+    <Compile Include="Model\RibbonItem.cs" />
+    <Compile Include="RibbonItem.cs" />
+    <Compile Include="Views\InitialForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\InitialForm.Designer.cs">
+      <DependentUpon>InitialForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="myorganizationcrmsdktypes.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ProgressBarView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\ProgressBarView.Designer.cs">
-      <DependentUpon>ProgressBarView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\RibbonDownloadForm.cs">
       <SubType>Form</SubType>
@@ -86,7 +86,7 @@
     <Compile Include="Views\RibbonDownloadForm.Designer.cs">
       <DependentUpon>RibbonDownloadForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\ServerConfigurationForm.cs">
+    <Compile Include="Views\ServerConfiguration.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\ServerConfigurationForm.Designer.cs">
@@ -99,14 +99,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ProgressBarView.resx">
-      <DependentUpon>ProgressBarView.cs</DependentUpon>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ServerConfigurationForm.resx">
+      <DependentUpon>ServerConfigurationForm.cs</DependentUpon>
     <EmbeddedResource Include="Views\RibbonDownloadForm.resx">
       <DependentUpon>RibbonDownloadForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ServerConfigurationForm.resx">
-      <DependentUpon>ServerConfigurationForm.cs</DependentUpon>
+    <EmbeddedResource Include="Views\ServerConfiguration.resx">
+      <DependentUpon>ServerConfiguration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

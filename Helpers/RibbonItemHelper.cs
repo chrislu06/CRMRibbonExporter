@@ -9,6 +9,8 @@ using Microsoft.Xrm.Sdk.Client;
 using Microsoft.Crm.Sdk.Messages;
 using System.IO;
 using System.IO.Packaging;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace Microsoft.Crm.Sdk.RibbonExporter
 {
@@ -23,7 +25,7 @@ namespace Microsoft.Crm.Sdk.RibbonExporter
             _serverConfig = serverConfig;
         }
 
-        private List<RibbonItem> GetListOfRibbonItems()
+        public List<RibbonItem> GetListOfRibbonItems()
         {
             List<RibbonItem> ribbonItems = new List<RibbonItem>();
             // This statement is required to enable early-bound type support.                  
@@ -58,18 +60,23 @@ namespace Microsoft.Crm.Sdk.RibbonExporter
             return ribbonItems;
         }
 
-        public void FetchRibbonItems(List<RibbonItem> ribbonItems, String exportFolder)
+        public void FetchRibbonItems(List<RibbonItem> ribbonItems, String exportFolder, BackgroundWorker bgWorker, Action<string> callback)
         {
             RetrieveEntityRibbonRequest entRibReq = new RetrieveEntityRibbonRequest() { RibbonLocationFilter = RibbonLocationFilters.All };
 
+            int i = 0;
+            int numItems = ribbonItems.Count;
+
             foreach (RibbonItem item in ribbonItems) {
+                callback(item.EntityName);
                 entRibReq.EntityName = item.EntityName;
                 RetrieveEntityRibbonResponse entRibResp = (RetrieveEntityRibbonResponse)_serviceProxy.Execute(entRibReq);
 
                 System.String entityRibbonPath = Path.GetFullPath(exportFolder + "\\" + item.EntityName + "Ribbon.xml");
                 File.WriteAllBytes(entityRibbonPath, unzipRibbon(entRibResp.CompressedEntityXml));
-                //Write the path where the file has been saved.
-                Console.WriteLine(entityRibbonPath);
+
+                int p = Convert.ToInt32((Convert.ToDouble(++i) / Convert.ToDouble(numItems)) * 100);
+                bgWorker.ReportProgress(p);
             }
         }
 
