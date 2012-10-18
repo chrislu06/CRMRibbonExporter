@@ -29,11 +29,14 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gbMain = new System.Windows.Forms.GroupBox();
+            this.btnBrowse = new System.Windows.Forms.Button();
+            this.tbxDownloadTo = new System.Windows.Forms.TextBox();
+            this.lblSaveTo = new System.Windows.Forms.Label();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
@@ -41,9 +44,6 @@
             this.lblExport = new System.Windows.Forms.Label();
             this.lblAvailable = new System.Windows.Forms.Label();
             this.lstboxAvailable = new System.Windows.Forms.ListBox();
-            this.lblSaveTo = new System.Windows.Forms.Label();
-            this.tbxDownloadTo = new System.Windows.Forms.TextBox();
-            this.btnBrowse = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.menuStrip1.SuspendLayout();
             this.gbMain.SuspendLayout();
@@ -59,21 +59,21 @@
             this.menuStrip1.Size = new System.Drawing.Size(738, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
-            //this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exitToolStripMenuItem});
+            this.closeToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
             this.fileToolStripMenuItem.Text = "File";
             // 
-            // exitToolStripMenuItem
+            // closeToolStripMenuItem
             // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(102, 24);
-            this.exitToolStripMenuItem.Text = "Exit";
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.closeToolStripMenuItem.Text = "Close";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -87,20 +87,18 @@
             // viewHelpToolStripMenuItem
             // 
             this.viewHelpToolStripMenuItem.Name = "viewHelpToolStripMenuItem";
-            this.viewHelpToolStripMenuItem.Size = new System.Drawing.Size(146, 24);
+            this.viewHelpToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.viewHelpToolStripMenuItem.Text = "View Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(146, 24);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // gbMain
             // 
-            this.gbMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.gbMain.Controls.Add(this.btnBrowse);
             this.gbMain.Controls.Add(this.tbxDownloadTo);
             this.gbMain.Controls.Add(this.lblSaveTo);
@@ -117,6 +115,33 @@
             this.gbMain.TabIndex = 1;
             this.gbMain.TabStop = false;
             this.gbMain.Text = "Ribbon Exporter";
+            // 
+            // btnBrowse
+            // 
+            this.btnBrowse.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBrowse.Location = new System.Drawing.Point(525, 606);
+            this.btnBrowse.Name = "btnBrowse";
+            this.btnBrowse.Size = new System.Drawing.Size(75, 31);
+            this.btnBrowse.TabIndex = 9;
+            this.btnBrowse.Text = "...";
+            this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
+            // 
+            // tbxDownloadTo
+            // 
+            this.tbxDownloadTo.Location = new System.Drawing.Point(182, 610);
+            this.tbxDownloadTo.Name = "tbxDownloadTo";
+            this.tbxDownloadTo.Size = new System.Drawing.Size(337, 22);
+            this.tbxDownloadTo.TabIndex = 8;
+            // 
+            // lblSaveTo
+            // 
+            this.lblSaveTo.AutoSize = true;
+            this.lblSaveTo.Location = new System.Drawing.Point(12, 613);
+            this.lblSaveTo.Name = "lblSaveTo";
+            this.lblSaveTo.Size = new System.Drawing.Size(164, 17);
+            this.lblSaveTo.TabIndex = 7;
+            this.lblSaveTo.Text = "Download XML Files To: ";
             // 
             // btnExport
             // 
@@ -186,33 +211,6 @@
             this.lstboxAvailable.Size = new System.Drawing.Size(272, 532);
             this.lstboxAvailable.TabIndex = 0;
             // 
-            // lblSaveTo
-            // 
-            this.lblSaveTo.AutoSize = true;
-            this.lblSaveTo.Location = new System.Drawing.Point(12, 613);
-            this.lblSaveTo.Name = "lblSaveTo";
-            this.lblSaveTo.Size = new System.Drawing.Size(164, 17);
-            this.lblSaveTo.TabIndex = 7;
-            this.lblSaveTo.Text = "Download XML Files To: ";
-            // 
-            // tbxDownloadTo
-            // 
-            this.tbxDownloadTo.Location = new System.Drawing.Point(182, 610);
-            this.tbxDownloadTo.Name = "tbxDownloadTo";
-            this.tbxDownloadTo.Size = new System.Drawing.Size(337, 22);
-            this.tbxDownloadTo.TabIndex = 8;
-            // 
-            // btnBrowse
-            // 
-            this.btnBrowse.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBrowse.Location = new System.Drawing.Point(525, 606);
-            this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Size = new System.Drawing.Size(75, 31);
-            this.btnBrowse.TabIndex = 9;
-            this.btnBrowse.Text = "...";
-            this.btnBrowse.UseVisualStyleBackColor = true;
-            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
-            // 
             // RibbonDownloadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -220,6 +218,7 @@
             this.ClientSize = new System.Drawing.Size(738, 710);
             this.Controls.Add(this.gbMain);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "RibbonDownloadForm";
             this.Text = "RibbonDownloadForm";
@@ -236,7 +235,7 @@
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewHelpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;

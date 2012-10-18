@@ -27,7 +27,6 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
         public RibbonDownloadForm(ServerConnection.Configuration config)
         {
             InitializeComponent();
-            this.Show();
 
             lstboxAvailable.DisplayMember = "EntityName";
             lstboxExport.DisplayMember = "EntityName";
@@ -83,6 +82,15 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
 
         private void btnExport_Click(object sender, EventArgs e)
         {
+            if (lstboxExport.Items.Count == 0)
+                return;
+
+            if (!Directory.Exists(tbxDownloadTo.Text))
+            {
+                MessageBox.Show(String.Format("Path \"{0}\" does not exist, please choose another", tbxDownloadTo.Text));
+                return;
+            }
+
             List<Model.RibbonItem> itemsToDownload = new List<Model.RibbonItem>();
             foreach (var item in lstboxExport.Items) {
                 itemsToDownload.Add((Model.RibbonItem)item);
@@ -113,6 +121,17 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
             t.Join();
 
             tbxDownloadTo.Text = selectedPath;
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Views.AboutView about = new AboutView();
+            about.Show();
         }
     }
 }

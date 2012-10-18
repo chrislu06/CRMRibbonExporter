@@ -43,9 +43,9 @@
             this.btnClearForm = new System.Windows.Forms.Button();
             this.btnSaveConfig = new System.Windows.Forms.Button();
             this.gbxOrgs = new System.Windows.Forms.GroupBox();
-            this.lbOrganizations = new System.Windows.Forms.ListBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.btnSelectOrg = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lbOrganizations = new System.Windows.Forms.ListBox();
             this.gbxServerConfig.SuspendLayout();
             this.gbxOrgs.SuspendLayout();
             this.SuspendLayout();
@@ -83,9 +83,9 @@
             // 
             // tbxServerAddr
             // 
-            this.tbxServerAddr.Location = new System.Drawing.Point(152, 37);
+            this.tbxServerAddr.Location = new System.Drawing.Point(164, 37);
             this.tbxServerAddr.Name = "tbxServerAddr";
-            this.tbxServerAddr.Size = new System.Drawing.Size(426, 22);
+            this.tbxServerAddr.Size = new System.Drawing.Size(414, 22);
             this.tbxServerAddr.TabIndex = 4;
             // 
             // lblServerAddr
@@ -104,15 +104,15 @@
             this.lblDomainAndUsername.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDomainAndUsername.Location = new System.Drawing.Point(13, 65);
             this.lblDomainAndUsername.Name = "lblDomainAndUsername";
-            this.lblDomainAndUsername.Size = new System.Drawing.Size(133, 20);
+            this.lblDomainAndUsername.Size = new System.Drawing.Size(137, 20);
             this.lblDomainAndUsername.TabIndex = 7;
-            this.lblDomainAndUsername.Text = "domain\\username:";
+            this.lblDomainAndUsername.Text = "Domain\\Username:";
             // 
             // tbxDomainUsername
             // 
-            this.tbxDomainUsername.Location = new System.Drawing.Point(152, 63);
+            this.tbxDomainUsername.Location = new System.Drawing.Point(164, 63);
             this.tbxDomainUsername.Name = "tbxDomainUsername";
-            this.tbxDomainUsername.Size = new System.Drawing.Size(426, 22);
+            this.tbxDomainUsername.Size = new System.Drawing.Size(414, 22);
             this.tbxDomainUsername.TabIndex = 6;
             // 
             // lblPassword
@@ -127,9 +127,9 @@
             // 
             // tbxPassword
             // 
-            this.tbxPassword.Location = new System.Drawing.Point(152, 91);
+            this.tbxPassword.Location = new System.Drawing.Point(164, 91);
             this.tbxPassword.Name = "tbxPassword";
-            this.tbxPassword.Size = new System.Drawing.Size(426, 22);
+            this.tbxPassword.Size = new System.Drawing.Size(414, 22);
             this.tbxPassword.TabIndex = 10;
             // 
             // gbxServerConfig
@@ -174,7 +174,7 @@
             // 
             // btnClearForm
             // 
-            this.btnClearForm.Location = new System.Drawing.Point(348, 189);
+            this.btnClearForm.Location = new System.Drawing.Point(466, 187);
             this.btnClearForm.Name = "btnClearForm";
             this.btnClearForm.Size = new System.Drawing.Size(112, 34);
             this.btnClearForm.TabIndex = 12;
@@ -184,11 +184,11 @@
             // 
             // btnSaveConfig
             // 
-            this.btnSaveConfig.Location = new System.Drawing.Point(466, 189);
+            this.btnSaveConfig.Location = new System.Drawing.Point(348, 187);
             this.btnSaveConfig.Name = "btnSaveConfig";
             this.btnSaveConfig.Size = new System.Drawing.Size(112, 34);
             this.btnSaveConfig.TabIndex = 11;
-            this.btnSaveConfig.Text = "Save";
+            this.btnSaveConfig.Text = "Connect";
             this.btnSaveConfig.UseVisualStyleBackColor = true;
             this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
             // 
@@ -205,14 +205,15 @@
             this.gbxOrgs.Text = "Organizations";
             this.gbxOrgs.Visible = false;
             // 
-            // lbOrganizations
+            // btnSelectOrg
             // 
-            this.lbOrganizations.FormattingEnabled = true;
-            this.lbOrganizations.ItemHeight = 16;
-            this.lbOrganizations.Location = new System.Drawing.Point(17, 21);
-            this.lbOrganizations.Name = "lbOrganizations";
-            this.lbOrganizations.Size = new System.Drawing.Size(207, 100);
-            this.lbOrganizations.TabIndex = 0;
+            this.btnSelectOrg.Location = new System.Drawing.Point(233, 50);
+            this.btnSelectOrg.Name = "btnSelectOrg";
+            this.btnSelectOrg.Size = new System.Drawing.Size(148, 38);
+            this.btnSelectOrg.TabIndex = 2;
+            this.btnSelectOrg.Text = "Save";
+            this.btnSelectOrg.UseVisualStyleBackColor = true;
+            this.btnSelectOrg.Click += new System.EventHandler(this.btnSelectOrg_Click);
             // 
             // label2
             // 
@@ -223,15 +224,14 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Select an Organization";
             // 
-            // btnSelectOrg
+            // lbOrganizations
             // 
-            this.btnSelectOrg.Location = new System.Drawing.Point(233, 50);
-            this.btnSelectOrg.Name = "btnSelectOrg";
-            this.btnSelectOrg.Size = new System.Drawing.Size(148, 38);
-            this.btnSelectOrg.TabIndex = 2;
-            this.btnSelectOrg.Text = "Select Organization";
-            this.btnSelectOrg.UseVisualStyleBackColor = true;
-            this.btnSelectOrg.Click += new System.EventHandler(this.btnSelectOrg_Click);
+            this.lbOrganizations.FormattingEnabled = true;
+            this.lbOrganizations.ItemHeight = 16;
+            this.lbOrganizations.Location = new System.Drawing.Point(17, 21);
+            this.lbOrganizations.Name = "lbOrganizations";
+            this.lbOrganizations.Size = new System.Drawing.Size(207, 100);
+            this.lbOrganizations.TabIndex = 0;
             // 
             // ServerConfigurationForm
             // 
@@ -244,6 +244,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.cmb_configurations);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "ServerConfigurationForm";
             this.Text = "ServerConfiguration";
             this.Load += new System.EventHandler(this.ServerConfiguration_Load);

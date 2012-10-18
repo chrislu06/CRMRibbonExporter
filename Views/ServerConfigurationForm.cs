@@ -44,15 +44,9 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
 
             }
 
-            if (isConfigExist) {
-                /*for (int i = 0; i < _serverConn.configurations.Count; i++) {
-                    cmb_configurations.Items.Add(_serverConn.configurations[i].ServerAddress + " : " +
-                                                 _serverConn.configurations[i].OrganizationName);
-                }*/
-                foreach (var config in _serverConn.configurations) {
+            if (isConfigExist) 
+                foreach (var config in _serverConn.configurations) 
                     cmb_configurations.Items.Add(config.ServerAddress + " : " + config.OrganizationName);
-                }
-            }
 
             cmb_configurations.Items.Add("<< Create new server configuration >>");
         }
@@ -83,6 +77,7 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
                     config.OrganizationServiceManagement = orgServiceManagement;
 
                     Views.RibbonDownloadForm ribbonDlForm = new RibbonDownloadForm(config);
+                    ribbonDlForm.Show();
                 }
                 catch (Exception ex) {
                     MessageBox.Show(ex.Message);
@@ -92,6 +87,35 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
 
         private void btnSaveConfig_Click(object sender, EventArgs e)
         {
+            ResetLabels();
+            bool isError = false;
+            if (String.IsNullOrWhiteSpace(tbxServerAddr.Text)) {
+                lblServerAddr.ForeColor = Color.Red;
+                lblServerAddr.Text = "* " + lblServerAddr.Text;
+                isError = true;
+            }
+
+            if (String.IsNullOrWhiteSpace(tbxDomainUsername.Text)) {
+                lblDomainAndUsername.ForeColor = Color.Red;
+                lblDomainAndUsername.Text = "* " + lblDomainAndUsername.Text;
+                isError = true;
+            }
+            if (String.IsNullOrWhiteSpace(tbxPassword.Text)) {
+                lblPassword.ForeColor = Color.Red;
+                lblPassword.Text = "* " + lblPassword.Text;
+                isError = true;
+            }
+
+            if (isError) return;
+
+            String[] domainAndUserName = tbxDomainUsername.Text.Split('\\');
+
+            if (domainAndUserName.Count() != 2) {
+                lblDomainAndUsername.ForeColor = Color.Red;
+                lblDomainAndUsername.Text = "* " + lblDomainAndUsername.Text;
+                return;
+            }
+
             _newConfig = new ServerConnection.Configuration { ServerAddress = tbxServerAddr.Text };
 
             if (String.IsNullOrWhiteSpace(_newConfig.ServerAddress))
@@ -122,14 +146,6 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
 
             // Get Login Credentials
             ClientCredentials credentials = new ClientCredentials();
-            String[] domainAndUserName = tbxDomainUsername.Text.Split('\\');
-
-            if (domainAndUserName.Count() != 2)
-            {
-                lblDomainAndUsername.ForeColor = Color.Red;
-                return;
-            }
-
             credentials.Windows.ClientCredential = new System.Net.NetworkCredential(domainAndUserName[1], tbxPassword.Text, domainAndUserName[0]);
             _newConfig.Credentials = credentials;
 
@@ -190,6 +206,18 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
             cbxOffice365.Checked = false;
         }
 
+        private void ResetLabels()
+        {
+            lblServerAddr.ForeColor = Color.Black;
+            lblServerAddr.Text = "Server Address";
+
+            lblDomainAndUsername.ForeColor = Color.Black;
+            lblDomainAndUsername.Text = "Domain\\Username";
+
+            lblPassword.ForeColor = Color.Black;
+            lblPassword.Text = "Password";
+        }
+
         private void ToggleFormView(bool hideView)
         {
             if (! hideView) {
@@ -199,6 +227,7 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
             else {
                 this.Height = 120;
                 this.gbxServerConfig.Visible = false;
+                this.gbxOrgs.Visible = false;
             }
         }
 
