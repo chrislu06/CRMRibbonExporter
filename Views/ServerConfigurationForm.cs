@@ -12,40 +12,35 @@ using Microsoft.Xrm.Sdk;
 using System.ServiceModel.Description;
 using Microsoft.Crm.Sdk.RibbonExporter.Helpers;
 using Microsoft.Xrm.Sdk.Discovery;
-using System.Xml;
 
 namespace Microsoft.Crm.Sdk.RibbonExporter.Views
 {
     public partial class ServerConfigurationForm : Form
     {
-        private ServerConnection _serverConn;
+        MyCrmServiceHelper _myCrmHelper;
         private ServerConnection.Configuration _newConfig;
-        string _credentialsFile = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CrmServer"), "Credentials.xml");
-        //public ServerConnection ServerConnection { get; set; }
 
         public ServerConfigurationForm()
         {
             InitializeComponent();
             this.Height = 120;
-            _serverConn = new ServerConnection();
+            _myCrmHelper = new MyCrmServiceHelper();
         }
 
         public void PopulateSavedConfigurations()
         {
             cmb_configurations.Items.Clear();
-            if (_serverConn.configurations != null)
-                _serverConn.configurations.Clear();
 
             Boolean isConfigExist = false;
             try {
-                isConfigExist = _serverConn.ReadConfigurations();
+                isConfigExist = _myCrmHelper.ReadConfigurations();
             }
             catch (Exception ex) {
 
             }
 
             if (isConfigExist) 
-                foreach (var config in _serverConn.configurations) 
+                foreach (var config in _myCrmHelper.Configurations)
                     cmb_configurations.Items.Add(config.ServerAddress + " : " + config.OrganizationName);
 
             cmb_configurations.Items.Add("<< Create new server configuration >>");
@@ -68,13 +63,10 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
         {
             if (cmb_configurations.SelectedIndex >= 0 && cmb_configurations.SelectedItem.ToString() != "<< Create new server configuration >>") {
                 try {
-                    ServerConnection.Configuration config = _serverConn.configurations[cmb_configurations.SelectedIndex];
+                    ServerConnection.Configuration config = _myCrmHelper.Configurations[cmb_configurations.SelectedIndex];
 
                     // Set IServiceManagement for the current organization.
-                    IServiceManagement<IOrganizationService> orgServiceManagement =
-                            ServiceConfigurationFactory.CreateManagement<IOrganizationService>(
-                            config.OrganizationUri);
-                    config.OrganizationServiceManagement = orgServiceManagement;
+                    _myCrmHelper.SetIServiceManagementForOrganization(ref config);
 
                     Views.RibbonDownloadForm ribbonDlForm = new RibbonDownloadForm(config);
                     ribbonDlForm.Show();
@@ -125,12 +117,10 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
             if (_newConfig.ServerAddress.EndsWith(".dynamics.com", StringComparison.InvariantCultureIgnoreCase)) {
                 // Check if the organization is provisioned in Microsoft Office 365.
                 if (cbxOffice365.Checked) {
-                    _newConfig.DiscoveryUri =
-                        new Uri(String.Format("https://disco.{0}/XRMServices/2011/Discovery.svc", _newConfig.ServerAddress));
+                    _newConfig.DiscoveryUri = new Uri(String.Format("https://disco.{0}/XRMServices/2011/Discovery.svc", _newConfig.ServerAddress));
                 }
                 else {
-                    _newConfig.DiscoveryUri =
-                        new Uri(String.Format("https://dev.{0}/XRMServices/2011/Discovery.svc", _newConfig.ServerAddress));
+                    _newConfig.DiscoveryUri = new Uri(String.Format("https://dev.{0}/XRMServices/2011/Discovery.svc", _newConfig.ServerAddress));
 
                     // Get or set the device credentials. This is required for Windows Live ID authentication. 
                     _newConfig.DeviceCredentials = Microsoft.Crm.Services.Utility.DeviceIdManager.LoadOrRegisterDevice();
@@ -138,11 +128,9 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
             }
             // Check if the server uses Secure Socket Layer (https).
             else if (cbxHttps.Checked)
-                _newConfig.DiscoveryUri =
-                    new Uri(String.Format("https://{0}/XRMServices/2011/Discovery.svc", _newConfig.ServerAddress));
+                _newConfig.DiscoveryUri = new Uri(String.Format("https://{0}/XRMServices/2011/Discovery.svc", _newConfig.ServerAddress));
             else
-                _newConfig.DiscoveryUri =
-                    new Uri(String.Format("http://{0}/XRMServices/2011/Discovery.svc", _newConfig.ServerAddress));
+                _newConfig.DiscoveryUri = new Uri(String.Format("http://{0}/XRMServices/2011/Discovery.svc", _newConfig.ServerAddress));
 
             // Get Login Credentials
             ClientCredentials credentials = new ClientCredentials();
@@ -150,9 +138,9 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
             _newConfig.Credentials = credentials;
 
             // Get Target Organization
-            MyCrmServiceHelper helpme = new MyCrmServiceHelper();
-            OrganizationDetailCollection organizations = helpme.GetOrganizationAddressesAsList(_newConfig);
+            OrganizationDetailCollection organizations = _myCrmHelper.GetOrganizationAddressesAsList(_newConfig);
 
+            // If there's only one organization then use that. Otherwise present the user with the multiple options.
             if (organizations.Count == 1) {
                 _newConfig.OrganizationName = organizations[0].FriendlyName;
                 _newConfig.OrganizationUri = new Uri(organizations[0].Endpoints[EndpointType.OrganizationService]);
@@ -169,23 +157,7 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
 
         private void SaveConfiguration()
         {
-            FileInfo file = new FileInfo(_credentialsFile);
-            // Create directory if it does not exist.
-            if (!file.Directory.Exists)
-                file.Directory.Create();
-
-            // Replace the file if it exists.
-            using (FileStream fs = file.Open(FileMode.Create, FileAccess.Write, FileShare.None)) {
-                using (XmlTextWriter writer = new XmlTextWriter(fs, Encoding.UTF8)) {
-                    writer.Formatting = Formatting.Indented;
-                    writer.WriteStartDocument();
-                    writer.WriteStartElement("Configurations");
-                    writer.WriteFullEndElement();
-                    writer.WriteEndDocument();
-                }
-            }
-
-            _serverConn.SaveConfiguration(_credentialsFile, _newConfig, true);
+            _myCrmHelper.SaveConfiguration(_newConfig, true);
 
             ClearForm();
             ToggleFormView(hideView: true);

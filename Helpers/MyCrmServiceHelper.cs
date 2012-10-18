@@ -4,11 +4,77 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xrm.Sdk.Client;
 using Microsoft.Xrm.Sdk.Discovery;
+using Microsoft.Xrm.Sdk;
+using System.IO;
+using System.Xml;
 
 namespace Microsoft.Crm.Sdk.RibbonExporter.Helpers
 {
     public class MyCrmServiceHelper
     {
+        private ServerConnection _serverConn;
+        private string _credentialsFile = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CrmServer"), "Credentials.xml");
+
+        public MyCrmServiceHelper()
+        {
+            _serverConn =  new ServerConnection();
+        }
+
+        public Boolean ReadConfigurations()
+        {
+            if (_serverConn.configurations != null)
+                _serverConn.configurations.Clear();
+
+            return _serverConn.ReadConfigurations();
+        }
+
+        public void SaveConfiguration(ServerConnection.Configuration config, bool append)
+        {
+            FileInfo file = new FileInfo(_credentialsFile);
+            // Create directory if it does not exist.
+            if (!file.Directory.Exists)
+                file.Directory.Create();
+
+            // If the file exists, try to append to it
+            if (File.Exists(_credentialsFile)) {
+                try {
+                    _serverConn.SaveConfiguration(_credentialsFile, config, append);
+                }
+                catch (Exception ex) {
+                    // error appending (possibly invalid XML), just overwrite the file
+                    CreateNewCredentialsFile(file);
+                    _serverConn.SaveConfiguration(_credentialsFile, config, append);
+                }
+            }
+            else {
+                // File doesn't exist, create a new one
+                CreateNewCredentialsFile(file);
+                _serverConn.SaveConfiguration(_credentialsFile, config, append);
+            }
+        }
+
+        private void CreateNewCredentialsFile(FileInfo file)
+        {
+            // Replace the file if it exists.
+            using (FileStream fs = file.Open(FileMode.Create, FileAccess.Write, FileShare.None)) {
+                using (XmlTextWriter writer = new XmlTextWriter(fs, Encoding.UTF8)) {
+                    writer.Formatting = Formatting.Indented;
+                    writer.WriteStartDocument();
+                    writer.WriteStartElement("Configurations");
+                    writer.WriteFullEndElement();
+                    writer.WriteEndDocument();
+                }
+            }
+        }
+
+        public void SetIServiceManagementForOrganization(ref ServerConnection.Configuration config)
+        {
+            IServiceManagement<IOrganizationService> orgServiceManagement =
+                            ServiceConfigurationFactory.CreateManagement<IOrganizationService>(
+                            config.OrganizationUri);
+            config.OrganizationServiceManagement = orgServiceManagement;
+        }
+
         public OrganizationDetailCollection GetOrganizationAddressesAsList(ServerConnection.Configuration config)
         {
             OrganizationDetailCollection orgs = new OrganizationDetailCollection();
@@ -106,6 +172,11 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Helpers
                 (RetrieveOrganizationsResponse)service.Execute(orgRequest);
 
             return orgResponse.Details;
+        }
+
+        public List<ServerConnection.Configuration> Configurations
+        {
+            get { return _serverConn.configurations; }
         }
     }
 }
