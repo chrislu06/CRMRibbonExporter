@@ -16,6 +16,8 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
     {
         private OrganizationServiceProxy _serviceProxy;
         private RibbonItemHelper _ribbonItemHelper;
+        List<Model.RibbonItem> _itemsToDL;
+        String _downloadDir;
 
         public RibbonDownloadForm()
         {
@@ -101,8 +103,9 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
                 Directory.CreateDirectory(downloadDir);
             }
 
-            Views.ProgressBarView pbView = new ProgressBarView(_ribbonItemHelper, itemsToDownload, downloadDir);
-            pbView.Show();
+            BeginRibbonDownload(_ribbonItemHelper, itemsToDownload, downloadDir);
+            //Views.ProgressBarView pbView = new ProgressBarView(_ribbonItemHelper, itemsToDownload, downloadDir);
+            //pbView.Show();
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -132,6 +135,51 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
         {
             Views.AboutView about = new AboutView();
             about.Show();
+        }
+
+        private void BeginRibbonDownload(RibbonItemHelper helper, List<Model.RibbonItem> itemsToDL, String downloadDir)
+        {
+            _ribbonItemHelper = helper;
+            _itemsToDL = itemsToDL;
+            _downloadDir = downloadDir;
+
+            backgroundWorker1.DoWork += backgroundWorker1_DoWork;
+            backgroundWorker1.ProgressChanged += backgroundWorker1_ProgressChanged;
+            backgroundWorker1.RunWorkerCompleted += backgroundWorker1_RunWorkerCompleted;
+            backgroundWorker1.RunWorkerAsync();
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Action<string> callback = (file =>
+            {
+                this.Invoke((MethodInvoker)
+                  delegate()
+                  {
+                      MainView myParent = this.MdiParent as MainView;
+                      myParent.UpdateStatusLabel(file);
+                      //lblCurrentFile.Text = file;
+                  });
+            });
+
+            _ribbonItemHelper.FetchRibbonItems(_itemsToDL, _downloadDir, backgroundWorker1, callback);
+        }
+
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            MainView myParent = this.MdiParent as MainView;
+            myParent.UpdateProgressBar(e.ProgressPercentage);
+            //progressBar1.Value = e.ProgressPercentage;
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            MainView myParent = this.MdiParent as MainView;
+            myParent.UpdateStatusLabel("Complete");
+            myParent.UpdateProgressBar(0);
+            /*lblCurrentFile.Text = "";
+            MessageBox.Show("Finished downloading ribbons");*/
+            this.Close();
         }
     }
 }

@@ -72,6 +72,7 @@
             this.Controls.Add(this.progressBar1);
             this.Name = "ProgressBarView";
             this.Text = "Download Progress";
+            this.Load += new System.EventHandler(this.ProgressBarView_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

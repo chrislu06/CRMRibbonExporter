@@ -112,5 +112,22 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
         {
 
         }
+
+        public void UpdateStatusLabel(String labelText)
+        {
+            this.toolStripStatusLabel.Text = labelText;
+        }
+
+        public void UpdateProgressBar(int progressPercentage)
+        {
+            this.toolStripProgressBar1.Value = progressPercentage;
+        }
+
+        private void serverConfigurationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ServerConfigurationForm configForm = new ServerConfigurationForm();
+            configForm.MdiParent = this;
+            configForm.Show();
+        }
     }
 }

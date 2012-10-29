@@ -58,5 +58,10 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
             MessageBox.Show("Finished downloading ribbons");
             this.Close();
         }
+
+        private void ProgressBarView_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

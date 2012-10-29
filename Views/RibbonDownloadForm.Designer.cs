@@ -39,6 +39,7 @@
             this.lblAvailable = new System.Windows.Forms.Label();
             this.lstboxAvailable = new System.Windows.Forms.ListBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.gbMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -156,6 +157,11 @@
             this.lstboxAvailable.Size = new System.Drawing.Size(272, 420);
             this.lstboxAvailable.TabIndex = 0;
             // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.WorkerReportsProgress = true;
+            this.backgroundWorker1.WorkerSupportsCancellation = true;
+            // 
             // RibbonDownloadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -185,5 +191,6 @@
         private System.Windows.Forms.TextBox tbxDownloadTo;
         private System.Windows.Forms.Label lblSaveTo;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

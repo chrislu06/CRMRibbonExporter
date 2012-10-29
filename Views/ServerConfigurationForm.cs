@@ -80,6 +80,8 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
                     Views.RibbonDownloadForm ribbonDlForm = new RibbonDownloadForm(config);
                     ribbonDlForm.MdiParent = this.MdiParent;
                     ribbonDlForm.Show();
+
+                    this.Close();
                 }
                 catch (Exception ex) {
                     MessageBox.Show(ex.Message);
