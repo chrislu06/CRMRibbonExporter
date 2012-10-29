@@ -27,12 +27,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gbMain = new System.Windows.Forms.GroupBox();
             this.btnBrowse = new System.Windows.Forms.Button();
             this.tbxDownloadTo = new System.Windows.Forms.TextBox();
@@ -45,57 +39,8 @@
             this.lblAvailable = new System.Windows.Forms.Label();
             this.lstboxAvailable = new System.Windows.Forms.ListBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.menuStrip1.SuspendLayout();
             this.gbMain.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.helpToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(738, 28);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.closeToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // closeToolStripMenuItem
-            // 
-            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
-            this.closeToolStripMenuItem.Text = "Close";
-            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.viewHelpToolStripMenuItem,
-            this.aboutToolStripMenuItem});
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
-            this.helpToolStripMenuItem.Text = "Help";
-            // 
-            // viewHelpToolStripMenuItem
-            // 
-            this.viewHelpToolStripMenuItem.Name = "viewHelpToolStripMenuItem";
-            this.viewHelpToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
-            this.viewHelpToolStripMenuItem.Text = "View Help";
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // gbMain
             // 
@@ -109,9 +54,9 @@
             this.gbMain.Controls.Add(this.lblExport);
             this.gbMain.Controls.Add(this.lblAvailable);
             this.gbMain.Controls.Add(this.lstboxAvailable);
-            this.gbMain.Location = new System.Drawing.Point(13, 32);
+            this.gbMain.Location = new System.Drawing.Point(13, 12);
             this.gbMain.Name = "gbMain";
-            this.gbMain.Size = new System.Drawing.Size(713, 664);
+            this.gbMain.Size = new System.Drawing.Size(713, 545);
             this.gbMain.TabIndex = 1;
             this.gbMain.TabStop = false;
             this.gbMain.Text = "Ribbon Exporter";
@@ -119,7 +64,7 @@
             // btnBrowse
             // 
             this.btnBrowse.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBrowse.Location = new System.Drawing.Point(525, 606);
+            this.btnBrowse.Location = new System.Drawing.Point(533, 500);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(75, 31);
             this.btnBrowse.TabIndex = 9;
@@ -129,7 +74,7 @@
             // 
             // tbxDownloadTo
             // 
-            this.tbxDownloadTo.Location = new System.Drawing.Point(182, 610);
+            this.tbxDownloadTo.Location = new System.Drawing.Point(190, 504);
             this.tbxDownloadTo.Name = "tbxDownloadTo";
             this.tbxDownloadTo.Size = new System.Drawing.Size(337, 22);
             this.tbxDownloadTo.TabIndex = 8;
@@ -137,7 +82,7 @@
             // lblSaveTo
             // 
             this.lblSaveTo.AutoSize = true;
-            this.lblSaveTo.Location = new System.Drawing.Point(12, 613);
+            this.lblSaveTo.Location = new System.Drawing.Point(20, 507);
             this.lblSaveTo.Name = "lblSaveTo";
             this.lblSaveTo.Size = new System.Drawing.Size(164, 17);
             this.lblSaveTo.TabIndex = 7;
@@ -145,7 +90,7 @@
             // 
             // btnExport
             // 
-            this.btnExport.Location = new System.Drawing.Point(606, 606);
+            this.btnExport.Location = new System.Drawing.Point(614, 500);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(75, 31);
             this.btnExport.TabIndex = 6;
@@ -180,7 +125,7 @@
             this.lstboxExport.Location = new System.Drawing.Point(410, 61);
             this.lstboxExport.Name = "lstboxExport";
             this.lstboxExport.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstboxExport.Size = new System.Drawing.Size(272, 532);
+            this.lstboxExport.Size = new System.Drawing.Size(272, 420);
             this.lstboxExport.TabIndex = 3;
             // 
             // lblExport
@@ -208,37 +153,26 @@
             this.lstboxAvailable.Location = new System.Drawing.Point(28, 61);
             this.lstboxAvailable.Name = "lstboxAvailable";
             this.lstboxAvailable.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstboxAvailable.Size = new System.Drawing.Size(272, 532);
+            this.lstboxAvailable.Size = new System.Drawing.Size(272, 420);
             this.lstboxAvailable.TabIndex = 0;
             // 
             // RibbonDownloadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(738, 710);
+            this.ClientSize = new System.Drawing.Size(738, 568);
             this.Controls.Add(this.gbMain);
-            this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "RibbonDownloadForm";
             this.Text = "RibbonDownloadForm";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.gbMain.ResumeLayout(false);
             this.gbMain.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem viewHelpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.GroupBox gbMain;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnRemove;

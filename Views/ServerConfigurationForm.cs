@@ -68,7 +68,9 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
             if (cmb_configurations.SelectedIndex >= 0 && cmb_configurations.SelectedItem.ToString() != "<< Create new server configuration >>") {
                 try {
                     ServerConnection.Configuration config = _myCrmHelper.Configurations[cmb_configurations.SelectedIndex];
-
+                    config.Credentials.Windows.ClientCredential = new System.Net.NetworkCredential("tnd_dlagrew", "Welcome1", "tnd");
+                    //config.Credentials.Windows.ClientCredential.UserName = "tnd\\tnd_spickford";
+                    //config.Credentials.Windows.ClientCredential.Password = "Welcome1";
                     // Set IServiceManagement for the current organization.
                     _myCrmHelper.SetIServiceManagementForOrganization(ref config);
 
@@ -76,6 +78,7 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
                     btnConnect.Text = "Connect";
 
                     Views.RibbonDownloadForm ribbonDlForm = new RibbonDownloadForm(config);
+                    ribbonDlForm.MdiParent = this.MdiParent;
                     ribbonDlForm.Show();
                 }
                 catch (Exception ex) {

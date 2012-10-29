@@ -1,0 +1,6 @@
+Cancel button on ServerConfiguration Form
+Merging the progress bar when downloading ribbons with the select ribbon form
+Close ServerConfiguration when connected
+In File menu, add option to reopen ServerConfiguration
+ServerConfiguration should not close the Application
+Mask password field

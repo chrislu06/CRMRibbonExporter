@@ -293,7 +293,7 @@ namespace Microsoft.Crm.Sdk.RibbonExporter
         // Enable the UI
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
-        Application.Run(new ServerConfigurationForm());
+        Application.Run(new MainView());
 
         //initForm.Show();
 
