@@ -12,6 +12,7 @@ using Microsoft.Xrm.Sdk;
 using System.ServiceModel.Description;
 using Microsoft.Crm.Sdk.RibbonExporter.Helpers;
 using Microsoft.Xrm.Sdk.Discovery;
+using System.Threading;
 
 namespace Microsoft.Crm.Sdk.RibbonExporter.Views
 {
@@ -59,14 +60,20 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
                 ToggleFormView(hideView: true);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnConnect_Click(object sender, EventArgs e)
         {
+            btnConnect.Text = "Connecting";
+            btnConnect.Enabled = false;
+
             if (cmb_configurations.SelectedIndex >= 0 && cmb_configurations.SelectedItem.ToString() != "<< Create new server configuration >>") {
                 try {
                     ServerConnection.Configuration config = _myCrmHelper.Configurations[cmb_configurations.SelectedIndex];
 
                     // Set IServiceManagement for the current organization.
                     _myCrmHelper.SetIServiceManagementForOrganization(ref config);
+
+                    btnConnect.Enabled = true;
+                    btnConnect.Text = "Connect";
 
                     Views.RibbonDownloadForm ribbonDlForm = new RibbonDownloadForm(config);
                     ribbonDlForm.Show();
@@ -138,7 +145,13 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
             _newConfig.Credentials = credentials;
 
             // Get Target Organization
-            OrganizationDetailCollection organizations = _myCrmHelper.GetOrganizationAddressesAsList(_newConfig);
+            OrganizationDetailCollection organizations = new OrganizationDetailCollection();
+            try {
+                organizations = _myCrmHelper.GetOrganizationAddressesAsList(_newConfig);
+            }
+            catch (System.IO.FileNotFoundException ex) {
+                MessageBox.Show(String.Format("Error: {0}", ex.Message));
+            }
 
             // If there's only one organization then use that. Otherwise present the user with the multiple options.
             if (organizations.Count == 1) {
@@ -146,8 +159,7 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
                 _newConfig.OrganizationUri = new Uri(organizations[0].Endpoints[EndpointType.OrganizationService]);
                 SaveConfiguration();
             }
-            else
-            {
+            else {
                 this.Height = 510;
                 gbxOrgs.Visible = true;
                 lbOrganizations.DataSource = organizations;

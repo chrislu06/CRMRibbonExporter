@@ -297,7 +297,7 @@ namespace Microsoft.Crm.Sdk.RibbonExporter
 
         //initForm.Show();
 
-        ExportRibbonXml app = new ExportRibbonXml();
+        //ExportRibbonXml app = new ExportRibbonXml();
         //app.Run(config, true);
    }
    catch (FaultException<Microsoft.Xrm.Sdk.OrganizationServiceFault> ex)
