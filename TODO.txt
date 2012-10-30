@@ -3,5 +3,5 @@ Merging the progress bar when downloading ribbons with the main form - X
 Close ServerConfiguration when connected - X
 In menu, add option to reopen ServerConfiguration - X
 ServerConfiguration should not close the Application - X
-Add label on ribbon download form to show which server and org it is connected to
-Mask password field
+Add label on ribbon download form to show which server and org it is connected to - X
+Mask password field - X

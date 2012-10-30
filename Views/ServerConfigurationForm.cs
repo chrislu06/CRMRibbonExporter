@@ -78,6 +78,7 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
                     btnConnect.Text = "Connect";
 
                     Views.RibbonDownloadForm ribbonDlForm = new RibbonDownloadForm(config);
+                    ribbonDlForm.Text = config.ServerAddress.ToString() + ": " + config.OrganizationName;
                     ribbonDlForm.MdiParent = this.MdiParent;
                     ribbonDlForm.Show();
 
