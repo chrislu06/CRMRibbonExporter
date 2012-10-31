@@ -208,7 +208,7 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
             lblPassword.Text = "Password";
         }
 
-        private void ToggleFormView(bool hideView)
+        public void ToggleFormView(bool hideView)
         {
             if (! hideView) {
                 this.Height = 363;
@@ -232,6 +232,11 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
 
                 SaveConfiguration();
             }
+        }
+
+        public void selectNewOption()
+        {
+            cmb_configurations.SelectedIndex = cmb_configurations.Items.Count - 1;
         }
     }
 }

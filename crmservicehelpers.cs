@@ -80,6 +80,9 @@ namespace Microsoft.Crm.Sdk.RibbonExporter
                     if (!this.Credentials.Windows.ClientCredential.UserName.Equals(
                         c.Credentials.Windows.ClientCredential.UserName, StringComparison.InvariantCultureIgnoreCase))
                         return false;
+                    if (!this.Credentials.Windows.ClientCredential.Password.Equals(
+                        c.Credentials.Windows.ClientCredential.Password, StringComparison.InvariantCultureIgnoreCase))
+                        return false;
                 }
                 else if (this.EndpointType == AuthenticationProviderType.LiveId)
                 {
@@ -941,7 +944,8 @@ namespace Microsoft.Crm.Sdk.RibbonExporter
                     result.Windows.ClientCredential = new System.Net.NetworkCredential()
                     {
                         UserName = credentials.Element("UserName").Value,
-                        Domain = credentials.Element("Domain").Value
+                        Domain = credentials.Element("Domain").Value,
+                        Password = credentials.Element("Password").Value
                     };
                     break;
                 case AuthenticationProviderType.LiveId:
@@ -972,7 +976,8 @@ namespace Microsoft.Crm.Sdk.RibbonExporter
                     case AuthenticationProviderType.ActiveDirectory:
                         return new XElement("Credentials",
                             new XElement("UserName", clientCredentials.Windows.ClientCredential.UserName),
-                            new XElement("Domain", clientCredentials.Windows.ClientCredential.Domain)
+                            new XElement("Domain", clientCredentials.Windows.ClientCredential.Domain),
+                            new XElement("Password", clientCredentials.Windows.ClientCredential.Password)
                             );
                     case AuthenticationProviderType.LiveId:                        
                     case AuthenticationProviderType.Federation:                        

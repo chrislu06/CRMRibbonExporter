@@ -6,40 +6,27 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Microsoft.Crm.Sdk.RibbonExporter.Helpers;
 
 namespace Microsoft.Crm.Sdk.RibbonExporter.Views
 {
     public partial class MainView : Form
     {
         private int childFormNumber = 0;
+        MyCrmServiceHelper _myCrmHelper;
 
         public MainView()
         {
             InitializeComponent();
-
-            // On load, open the Server Configuration form
-            ServerConfigurationForm configForm = new ServerConfigurationForm();
-            configForm.MdiParent = this;
-            configForm.Show();
+            _myCrmHelper = new MyCrmServiceHelper();
         }
 
         private void ShowNewForm(object sender, EventArgs e)
         {
-            Form childForm = new Form();
-            childForm.MdiParent = this;
-            childForm.Text = "Window " + childFormNumber++;
-            childForm.Show();
-        }
-
-        private void OpenFile(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                string FileName = openFileDialog.FileName;
-            }
+            NewServerConfigurationForm configForm = new NewServerConfigurationForm();
+            configForm.MdiParent = this;
+            configForm.ToggleFormView(false);
+            configForm.Show();
         }
 
         private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -56,23 +43,6 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
         private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void CutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void CopyToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void PasteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void ToolBarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            toolStrip.Visible = toolBarToolStripMenuItem.Checked;
         }
 
         private void StatusBarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -110,7 +80,7 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
 
         private void MainView_Load(object sender, EventArgs e)
         {
-
+            PopulateSavedConfigurations();
         }
 
         public void UpdateStatusLabel(String labelText)
@@ -128,6 +98,50 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
             ServerConfigurationForm configForm = new ServerConfigurationForm();
             configForm.MdiParent = this;
             configForm.Show();
+        }
+
+        public void PopulateSavedConfigurations()
+        {
+            openToolStripMenuItem.DropDownItems.Clear();
+
+            Boolean isConfigExist = false;
+            try
+            {
+                isConfigExist = _myCrmHelper.ReadConfigurations();
+                if (isConfigExist)
+                {
+                    int index = 1;
+                    foreach (var config in _myCrmHelper.Configurations)
+                    {
+                        String newConfigString = index + ") " + config.ServerAddress + " : " + config.OrganizationName;
+                        openToolStripMenuItem.DropDownItems.Add(newConfigString, null, orgConfig_Click);
+                        index++;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void orgConfig_Click(object sender, System.EventArgs e)
+        {
+            ToolStripMenuItem selectedItem = sender as ToolStripMenuItem;
+            String selectedIndexString = selectedItem.Text.Split(')')[0];
+            int selectedIndex = int.Parse(selectedIndexString);
+            ServerConnection.Configuration config = _myCrmHelper.Configurations[selectedIndex - 1];
+            _myCrmHelper.SetIServiceManagementForOrganization(ref config);
+
+            Views.RibbonDownloadForm ribbonDlForm = new RibbonDownloadForm(config);
+            ribbonDlForm.Text = config.ServerAddress.ToString() + ": " + config.OrganizationName;
+            ribbonDlForm.MdiParent = this;
+            ribbonDlForm.Show();
         }
     }
 }
