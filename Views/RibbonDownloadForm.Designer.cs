@@ -61,6 +61,7 @@
             this.gbMain.TabIndex = 1;
             this.gbMain.TabStop = false;
             this.gbMain.Text = "Ribbon Exporter";
+            this.gbMain.UseWaitCursor = false;
             // 
             // btnBrowse
             // 
@@ -71,6 +72,7 @@
             this.btnBrowse.TabIndex = 9;
             this.btnBrowse.Text = "...";
             this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.UseWaitCursor = false;
             this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             // 
             // tbxDownloadTo
@@ -79,6 +81,7 @@
             this.tbxDownloadTo.Name = "tbxDownloadTo";
             this.tbxDownloadTo.Size = new System.Drawing.Size(337, 22);
             this.tbxDownloadTo.TabIndex = 8;
+            this.tbxDownloadTo.UseWaitCursor = false;
             // 
             // lblSaveTo
             // 
@@ -88,6 +91,7 @@
             this.lblSaveTo.Size = new System.Drawing.Size(164, 17);
             this.lblSaveTo.TabIndex = 7;
             this.lblSaveTo.Text = "Download XML Files To: ";
+            this.lblSaveTo.UseWaitCursor = false;
             // 
             // btnExport
             // 
@@ -97,6 +101,7 @@
             this.btnExport.TabIndex = 6;
             this.btnExport.Text = "Export!";
             this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.UseWaitCursor = false;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // btnAdd
@@ -107,6 +112,7 @@
             this.btnAdd.TabIndex = 5;
             this.btnAdd.Text = ">>";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.UseWaitCursor = false;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnRemove
@@ -117,6 +123,7 @@
             this.btnRemove.TabIndex = 4;
             this.btnRemove.Text = "<<";
             this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.UseWaitCursor = false;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // lstboxExport
@@ -128,6 +135,7 @@
             this.lstboxExport.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lstboxExport.Size = new System.Drawing.Size(272, 420);
             this.lstboxExport.TabIndex = 3;
+            this.lstboxExport.UseWaitCursor = false;
             // 
             // lblExport
             // 
@@ -137,6 +145,7 @@
             this.lblExport.Size = new System.Drawing.Size(48, 17);
             this.lblExport.TabIndex = 2;
             this.lblExport.Text = "Export";
+            this.lblExport.UseWaitCursor = false;
             // 
             // lblAvailable
             // 
@@ -146,6 +155,7 @@
             this.lblAvailable.Size = new System.Drawing.Size(65, 17);
             this.lblAvailable.TabIndex = 1;
             this.lblAvailable.Text = "Available";
+            this.lblAvailable.UseWaitCursor = false;
             // 
             // lstboxAvailable
             // 
@@ -156,6 +166,7 @@
             this.lstboxAvailable.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lstboxAvailable.Size = new System.Drawing.Size(272, 420);
             this.lstboxAvailable.TabIndex = 0;
+            this.lstboxAvailable.UseWaitCursor = false;
             // 
             // backgroundWorker1
             // 

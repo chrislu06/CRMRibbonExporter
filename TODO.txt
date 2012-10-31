@@ -1,10 +1,10 @@
-Cancel button on ServerConfiguration Form
 Merging the progress bar when downloading ribbons with the main form - X
 Close ServerConfiguration when connected - X
 In menu, add option to reopen ServerConfiguration - X
 ServerConfiguration should not close the Application - X
 Add label on ribbon download form to show which server and org it is connected to - X
 Mask password field - X
-Fix hard-coded Credential issue
-Add New Connection functionality to Main View
-Add Load Connection functionality to Main View
+Fix hard-coded Credential issue - X
+Add New Connection functionality to Main View - X
+Add Load Connection functionality to Main View - X
+Waiting indicator when connecting to org

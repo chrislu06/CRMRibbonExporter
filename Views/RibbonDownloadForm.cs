@@ -104,8 +104,6 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
             }
 
             BeginRibbonDownload(_ribbonItemHelper, itemsToDownload, downloadDir);
-            //Views.ProgressBarView pbView = new ProgressBarView(_ribbonItemHelper, itemsToDownload, downloadDir);
-            //pbView.Show();
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -177,9 +175,8 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
             MainView myParent = this.MdiParent as MainView;
             myParent.UpdateStatusLabel("Complete");
             myParent.UpdateProgressBar(0);
-            /*lblCurrentFile.Text = "";
-            MessageBox.Show("Finished downloading ribbons");*/
-            this.Close();
+            Cursor.Current = Cursors.Default;
+            MessageBox.Show("Ribbon Definitions Downloaded to " + tbxDownloadTo.Text, "Visual Ribbon Exporter", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

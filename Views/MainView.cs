@@ -132,6 +132,7 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
 
         private void orgConfig_Click(object sender, System.EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             ToolStripMenuItem selectedItem = sender as ToolStripMenuItem;
             String selectedIndexString = selectedItem.Text.Split(')')[0];
             int selectedIndex = int.Parse(selectedIndexString);
@@ -141,7 +142,13 @@ namespace Microsoft.Crm.Sdk.RibbonExporter.Views
             Views.RibbonDownloadForm ribbonDlForm = new RibbonDownloadForm(config);
             ribbonDlForm.Text = config.ServerAddress.ToString() + ": " + config.OrganizationName;
             ribbonDlForm.MdiParent = this;
+            Cursor.Current = Cursors.Default;
             ribbonDlForm.Show();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
